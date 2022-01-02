@@ -1,0 +1,89 @@
+﻿@model Cliente
+
+@{
+    ViewData["Title"] = "CadastroCliente";
+}
+
+<form asp-action="CadastroCliente" asp-controller="Home" method="post">
+    <main role="main">
+        <section class="container" style="margin-top: 50px">
+            <div class="row">
+                <aside class="col-sm-6">
+                    <h3 class="subtitle-doc">
+                        Cadastro de cliente
+                    </h3>
+                    <div id="code_register_1">
+                        <div class="card">
+                            <header class="card-header">
+                                <a href="" class="float-right btn btn-outline-primary mt-1">Entrar</a>
+                                <h4 class="card-title mt-2">Cadastro</h4>
+                            </header>
+                            <article class="card-body">
+                                @if (TempData["MSG_S"] != null)
+                                {
+                                    <p class="alert alert-success">@TempData["MSG_S"]</p>
+                                }
+                                <div class="form-row">
+                                    <div class="col form-group">
+                                        <label asp-for="Nome">Nome</label>
+                                        <input type="text" asp-for="Nome" class="form-control" placeholder="">
+                                        <span asp-validation-for="Nome"></span>
+                                    </div>
+                                    <div class="col form-group">
+                                        <label asp-for="Nascimento">Data de Nascimento</label>
+                                        <input type="datetime" asp-for="Nascimento" class="form-control" placeholder="">
+                                        <span asp-validation-for="Nascimento"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" asp-for="Sexo" value="M">
+                                        <span class="form-check-label"> Masculino </span>
+                                    </label>
+                                    <label class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" asp-for="Sexo" value="F">
+                                        <span class="form-check-label"> Feminino</span>
+                                    </label>
+                                    <br />
+                                    <span asp-validation-for="Sexo"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="CPF">CPF</label>
+                                    <input type="text" class="form-control" asp-for="CPF" placeholder="">
+                                    <span asp-validation-for="CPF"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Telefone">Telefone</label>
+                                    <input type="text" class="form-control" asp-for="Telefone" placeholder="">
+                                    <span asp-validation-for="Telefone"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Email">E-mail</label>
+                                    <input type="email" class="form-control" asp-for="Email" placeholder="">
+                                    <span asp-validation-for="Email"></span>
+                                    <small class="form-text text-muted">
+                                        Não compartilharemos seu e-mail com outras pessoas.
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Senha">Senha</label>
+                                    <input class="form-control" asp-for="Senha" type="password">
+                                    <span asp-validation-for="Senha"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block" asp-action="CadastroCliente" asp-controller="Home">Cadastrar-se</button>
+                                </div>
+                                <small class="text-muted">
+                                    Ao clicar em 'Registrar-se' você concorda
+                                    com os Termos de Uso e Política de Privacidade.
+                                </small>
+                            </article>
+                            <div class="border-top card-body text-center">Possui uma conta? <a href="">Entrar</a></div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+</form>
+
