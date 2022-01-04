@@ -1,11 +1,11 @@
-﻿using LojaVirtual.Libraries.Filtro;
-using LojaVirtual.Libraries.Login;
-using LojaVirtual.Repositories.Contracts;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LojaVirtual.Libraries.Filtro;
+using LojaVirtual.Libraries.Login;
+using LojaVirtual.Repositories.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LojaVirtual.Areas.Colaborador.Controllers
 {
@@ -30,11 +30,11 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
         [HttpPost]
         public IActionResult Login([FromForm]Models.Colaborador colaborador)
         {
-            Models.Colaborador colaboradorDb = _repositoryColaborador.Login(colaborador.Email, colaborador.Senha);
+            Models.Colaborador colaboradorDB = _repositoryColaborador.Login(colaborador.Email, colaborador.Senha);
 
-            if (colaboradorDb !=  null)
+            if (colaboradorDB != null)
             {
-                _loginColaborador.Login(colaboradorDb);
+                _loginColaborador.Login(colaboradorDB);
 
                 return new RedirectResult(Url.Action(nameof(Painel)));
             }
@@ -49,15 +49,10 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
         public IActionResult Logout()
         {
             _loginColaborador.Logout();
-
             return RedirectToAction("Login", "Home");
         }
 
-        [ColaboradorAutorizacao]
-        public IActionResult Painel()
-        {
-            return View();
-        }
+
 
         public IActionResult RecuperarSenha()
         {
@@ -65,6 +60,14 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
         }
 
         public IActionResult CadastrarNovaSenha()
+        {
+            return View();
+        }
+
+
+
+        [ColaboradorAutorizacao]
+        public IActionResult Painel()
         {
             return View();
         }

@@ -8,12 +8,13 @@ namespace LojaVirtual.Repositories.Contracts
 {
     public interface IColaboradorRepository
     {
-        Colaborador Login(string email, string senha);
+        Colaborador Login(string Email, string Senha);
+
         void Cadastrar(Colaborador colaborador);
         void Atualizar(Colaborador colaborador);
-        void Excluir(int id);
-        Colaborador ObterColaborador(int id);
-        IEnumerable<Colaborador> ObterTodosColaboradores();
+        void Excluir(int Id);
 
+        Colaborador ObterColaborador(int Id);
+        IEnumerable<Colaborador> ObterTodosColaboradores();
     }
 }

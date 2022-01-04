@@ -11,8 +11,11 @@ namespace LojaVirtual.Models
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
-
-        public string Tipo { get; set; }
-
+        /*
+         * TIPO
+         * - C=Comum
+         * - G=Gerente
+         */
+        public string Tipo { get; set; } 
     }
 }

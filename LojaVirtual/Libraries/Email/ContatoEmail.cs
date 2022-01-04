@@ -12,9 +12,12 @@ namespace LojaVirtual.Libraries.Email
     {
         public static void EnviarContatoPorEmail(Contato contato)
         {
+            /*
+             * SMTP -> Servidor que vai enviar a mensagem.
+             */
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("anselmoandersonsilva@gmail.com", "ABXT4Y9EZ3i5#@");
+            smtp.Credentials = new NetworkCredential("elias.ribeiro.s@gmail.com", "");
             smtp.EnableSsl = true;
 
             string corpoMsg = string.Format("<h2>Contato - LojaVirtual</h2>" +
@@ -27,13 +30,18 @@ namespace LojaVirtual.Libraries.Email
                 contato.Texto
             );
 
+
+            /*
+             * MailMessage -> Construir a mensagem
+             */
             MailMessage mensagem = new MailMessage();
-            mensagem.From = new MailAddress("anselmoandersonsilva@gmail.com");
-            mensagem.To.Add("aanselmo@outlook.com.br");
+            mensagem.From = new MailAddress("elias.ribeiro.s@gmail.com");
+            mensagem.To.Add("elias.ribeiro.s@gmail.com");
             mensagem.Subject = "Contato - LojaVirtual - E-mail: " + contato.Email;
             mensagem.Body = corpoMsg;
             mensagem.IsBodyHtml = true;
 
+            //Enviar Mensagem via SMTP
             smtp.Send(mensagem);
         }
     }

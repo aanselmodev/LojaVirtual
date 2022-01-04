@@ -9,53 +9,48 @@ namespace LojaVirtual.Libraries.Sessao
     public class Sessao
     {
         private IHttpContextAccessor _context;
-
         public Sessao(IHttpContextAccessor context)
         {
             _context = context;
         }
 
-        public void Cadastrar(string key, string valor)
+        /*
+         * CRUD - Cadastrar/Atualizar/Consultar/Remover - RemoverTodos/Exist
+         */
+        public void Cadastrar(string Key, string Valor)
         {
-            _context.HttpContext.Session.SetString(key, valor);
+            _context.HttpContext.Session.SetString(Key, Valor);
         }
-
-        public void Atualizar(string key, string valor)
+        public void Atualizar(string Key, string Valor)
         {
-            if (Existe(key))
-            {
-                _context.HttpContext.Session.SetString(key, valor);
+            if (Existe(Key)) { 
+                _context.HttpContext.Session.Remove(Key);
             }
+            _context.HttpContext.Session.SetString(Key, Valor);
+        }
+        public void Remover(string Key)
+        {
+            _context.HttpContext.Session.Remove(Key);
+        }
+        public string Consultar(string Key)
+        {
+            return _context.HttpContext.Session.GetString(Key);
         }
 
-        public void Remover(string key)
-        {
-            if (Existe(key))
-            {
-                _context.HttpContext.Session.Remove(key);
-            }
-        }
 
-        public string Consultar(string key)
+        public bool Existe(string Key)
         {
-            return _context.HttpContext.Session.GetString(key);
-        }
-
-        public bool Existe(string key)
-        {
-            if (_context.HttpContext.Session.GetString(key) == null)
+            if( _context.HttpContext.Session.GetString(Key) == null)
             {
                 return false;
             }
 
-            return true;
+            return true;            
         }
-
         public void RemoverTodos()
         {
             _context.HttpContext.Session.Clear();
         }
 
-        
     }
 }

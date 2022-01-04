@@ -9,10 +9,12 @@ namespace LojaVirtual.Repositories.Contracts
 {
     public interface ICategoriaRepository
     {
+        //CRUD
         void Cadastrar(Categoria categoria);
         void Atualizar(Categoria categoria);
-        void Excluir(int id);
-        Categoria ObterCategoria(int id);
+        void Excluir(int Id);
+        Categoria ObterCategoria(int Id);
+        IEnumerable<Categoria> ObterTodasCategorias();
         IPagedList<Categoria> ObterTodasCategorias(int? pagina);
     }
 }

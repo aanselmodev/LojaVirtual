@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LojaVirtual.Migrations
 {
     [DbContext(typeof(LojaVirtualContext))]
-    [Migration("20211227222604_Categorias")]
+    [Migration("20190219233902_Categorias")]
     partial class Categorias
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -58,15 +58,13 @@ namespace LojaVirtual.Migrations
                         .IsRequired();
 
                     b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasMaxLength(18);
+                        .IsRequired();
 
                     b.Property<string>("Sexo")
                         .IsRequired();
 
                     b.Property<string>("Telefone")
-                        .IsRequired()
-                        .HasMaxLength(15);
+                        .IsRequired();
 
                     b.HasKey("Id");
 

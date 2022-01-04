@@ -11,7 +11,6 @@ namespace LojaVirtual.Repositories
     public class NewsletterRepository : INewsletterRepository
     {
         private LojaVirtualContext _banco;
-
         public NewsletterRepository(LojaVirtualContext banco)
         {
             _banco = banco;

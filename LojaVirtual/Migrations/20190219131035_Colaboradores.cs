@@ -3,14 +3,20 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LojaVirtual.Migrations
 {
-    public partial class Colaboradoes : Migration
+    public partial class Colaboradores : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
+                name: "Email",
+                table: "NewsletterEmails",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
                 name: "Telefone",
                 table: "Clientes",
-                maxLength: 15,
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
@@ -25,7 +31,6 @@ namespace LojaVirtual.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Senha",
                 table: "Clientes",
-                maxLength: 18,
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
@@ -74,11 +79,16 @@ namespace LojaVirtual.Migrations
                 name: "Colaboradores");
 
             migrationBuilder.AlterColumn<string>(
+                name: "Email",
+                table: "NewsletterEmails",
+                nullable: true,
+                oldClrType: typeof(string));
+
+            migrationBuilder.AlterColumn<string>(
                 name: "Telefone",
                 table: "Clientes",
                 nullable: true,
-                oldClrType: typeof(string),
-                oldMaxLength: 15);
+                oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
                 name: "Sexo",
@@ -90,8 +100,7 @@ namespace LojaVirtual.Migrations
                 name: "Senha",
                 table: "Clientes",
                 nullable: true,
-                oldClrType: typeof(string),
-                oldMaxLength: 18);
+                oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
                 name: "Nome",

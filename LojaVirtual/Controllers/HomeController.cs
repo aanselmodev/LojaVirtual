@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using LojaVirtual.Database;
-using Microsoft.AspNetCore.Http;
 using LojaVirtual.Repositories.Contracts;
+using Microsoft.AspNetCore.Http;
 using LojaVirtual.Libraries.Login;
 using LojaVirtual.Libraries.Filtro;
 
@@ -21,13 +21,12 @@ namespace LojaVirtual.Controllers
         private INewsletterRepository _repositoryNewsletter;
         private LoginCliente _loginCliente;
 
-        public HomeController(IClienteRepository clienteRepository, INewsletterRepository newsletterRepository, LoginCliente loginCliente)
+        public HomeController(IClienteRepository repositoryCliente, INewsletterRepository repositoryNewsletter, LoginCliente loginCliente)
         {
-            _repositoryCliente = clienteRepository;
-            _repositoryNewsletter = newsletterRepository;
+            _repositoryCliente = repositoryCliente;
+            _repositoryNewsletter = repositoryNewsletter;
             _loginCliente = loginCliente;
         }
-
 
         [HttpGet]
         public IActionResult Index()
@@ -41,9 +40,9 @@ namespace LojaVirtual.Controllers
             if (ModelState.IsValid)
             {
                 _repositoryNewsletter.Cadastrar(newsletter);
-
+                
                 TempData["MSG_S"] = "E-mail cadastrado! Agora você vai receber promoções especiais no seu e-mail! Fique atento as novidades!";
-
+                
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -64,7 +63,7 @@ namespace LojaVirtual.Controllers
                 contato.Nome = HttpContext.Request.Form["nome"];
                 contato.Email = HttpContext.Request.Form["email"];
                 contato.Texto = HttpContext.Request.Form["texto"];
-
+                
                 var listaMensagens = new List<ValidationResult>();
                 var contexto = new ValidationContext(contato);
                 bool isValid = Validator.TryValidateObject(contato, contexto, listaMensagens, true);
@@ -91,12 +90,15 @@ namespace LojaVirtual.Controllers
             }
             catch (Exception e)
             {
-                ViewData["MSG_E"] = "Houve um erro ao processar a requisição, tente novamente mais tarde.";
+                ViewData["MSG_E"] = "Opps! Tivemos um erro, tente novamente mais tarde!";
+
+                //TODO - Implementar Log
             }
             
 
             return View("Contato");
         }
+
 
         [HttpGet]
         public IActionResult Login()
@@ -107,17 +109,17 @@ namespace LojaVirtual.Controllers
         [HttpPost]
         public IActionResult Login([FromForm]Cliente cliente)
         {
-            Cliente clienteDb = _repositoryCliente.Login(cliente.Email, cliente.Senha);
+            Cliente clienteDB = _repositoryCliente.Login(cliente.Email, cliente.Senha);
 
-            if (clienteDb != null)
+            if(clienteDB != null)
             {
-                _loginCliente.Login(clienteDb);
+                _loginCliente.Login(clienteDB);
 
                 return new RedirectResult(Url.Action(nameof(Painel)));
-            } 
+            }
             else
             {
-                ViewData["MSG_E"] = "Usuário não encontrado, verifique o e-mail digitado!";
+                ViewData["MSG_E"] = "Usuário não encontrado, verifique o e-mail e senha digitado!";
                 return View();
             }
         }
@@ -126,7 +128,7 @@ namespace LojaVirtual.Controllers
         [ClienteAutorizacao]
         public IActionResult Painel()
         {
-            return new ContentResult() { Content = "Painel do cliente." };
+            return new ContentResult() { Content = "Este é o Painel do Cliente!" };
         }
 
         [HttpGet]
@@ -134,19 +136,18 @@ namespace LojaVirtual.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public IActionResult CadastroCliente([FromForm]Cliente cliente)
         {
             if (ModelState.IsValid)
             {
                 _repositoryCliente.Cadastrar(cliente);
-
+                
                 TempData["MSG_S"] = "Cadastro realizado com sucesso!";
 
+                //TODO - Implementar redirecionamentos diferentes (Painel, Carrinho de Compras etc).
                 return RedirectToAction(nameof(CadastroCliente));
             }
-
             return View();
         }
 

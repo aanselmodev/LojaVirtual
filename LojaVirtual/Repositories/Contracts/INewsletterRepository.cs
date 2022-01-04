@@ -9,7 +9,7 @@ namespace LojaVirtual.Repositories.Contracts
     public interface INewsletterRepository
     {
         void Cadastrar(NewsletterEmail newsletter);
-        IEnumerable<NewsletterEmail> ObterTodasNewsletter();
 
+        IEnumerable<NewsletterEmail> ObterTodasNewsletter();
     }
 }
